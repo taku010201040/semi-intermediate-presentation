@@ -2,145 +2,357 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>ゼミ中間発表 資料構成＆発表原稿【完成版】</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ゼミ中間発表 資料構成＆発表原稿【改訂版】</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+:root {
+    --primary: #4f46e5;
+    --primary-light: #818cf8;
+    --secondary: #06b6d4;
+    --bg-dark: #0f172a;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --bg-card: #ffffff;
+    --border-color: #e2e8f0;
+}
+
 @page {
     size: A4;
-    margin: 18mm;
+    margin: 15mm;
 }
+
 body {
-    font-family: 'Meiryo', 'Yu Gothic', 'Hiragino Kaku Gothic Pro', sans-serif;
-    font-size: 11px;
-    line-height: 1.85;
-    color: #1a1a2e;
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 20px 10px;
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text-dark);
+    background: #f8fafc;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-h1 {
-    font-size: 22px;
-    border-bottom: 3px solid #6366f1;
-    padding-bottom: 8px;
-    color: #1a1a2e;
-    margin-top: 36px;
+
+/* Slide Container / Card Design */
+.slide-card {
+    background: var(--bg-card);
+    width: 100%;
+    max-width: 820px;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 40px 50px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 40px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    page-break-inside: avoid;
 }
-h2 {
-    font-size: 17px;
-    border-bottom: 2px solid #22d3ee;
-    padding-bottom: 5px;
-    color: #2d2d5e;
-    margin-top: 30px;
-    page-break-before: auto;
+
+/* Decorative gradient line on top of each card */
+.slide-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
 }
-h3 {
-    font-size: 14px;
-    color: #4338ca;
+
+/* Clean up markdown transitions */
+hr.slide-divider {
+    display: none; /* Hide standard hr line because we wrap in cards */
+}
+
+/* Hide nested wrapper div artifacts */
+.slide-card > div {
+    margin: 0;
+}
+
+/* Headings */
+h1.slide-main-title {
+    font-family: 'Outfit', 'Noto Sans JP', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--bg-dark);
+    margin-top: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+    line-height: 1.3;
+}
+
+h2.slide-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+}
+
+h2.slide-section-title::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 20px;
+    background: var(--secondary);
+    margin-right: 10px;
+    border-radius: 2px;
+}
+
+h3.slide-sub-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #312e81;
     margin-top: 20px;
+    margin-bottom: 12px;
 }
-hr {
-    border: none;
-    border-top: 1px solid #e2e8f0;
-    margin: 28px 0;
+
+/* Style adjustment for subtle information (like logo or university name) */
+.subtitle-subtle {
+    font-size: 12px !important;
+    color: var(--text-muted) !important;
+    font-weight: 400 !important;
+    border: none !important;
+    margin-top: 10px !important;
+    text-align: center;
 }
+
+.subtle-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    background: #f1f5f9;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 400;
+}
+
+/* Main Messages Highlights (The Core Slide Message) */
+.main-message-box {
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 24px 0;
+    font-weight: 700;
+    line-height: 1.6;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+/* Most important core message (Hero) */
+.message-hero {
+    font-size: 20px;
+    background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+    border-left: 6px solid var(--primary);
+    color: #1e1b4b;
+    border: 1px solid #c7d2fe;
+    border-left: 6px solid var(--primary);
+}
+
+/* Prominent message */
+.message-prominent {
+    font-size: 17px;
+    background: linear-gradient(135deg, #ecfeff 0%, #cffafe 100%);
+    border: 1px solid #a5f3fc;
+    border-left: 6px solid var(--secondary);
+    color: #083344;
+}
+
+/* Standard highlights */
+.message-standard {
+    font-size: 15px;
+    background: #faf5ff;
+    border: 1px solid #f3e8ff;
+    border-left: 6px solid #a855f7;
+    color: #3b0764;
+}
+
+/* Lists */
+ul {
+    padding-left: 24px;
+    margin: 12px 0;
+}
+
+li {
+    margin: 8px 0;
+    position: relative;
+}
+
+/* Tables */
+.table-wrapper {
+    overflow-x: auto;
+    margin: 20px 0;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
 table {
     border-collapse: collapse;
     width: 100%;
-    margin: 14px 0;
-    font-size: 10.5px;
+    font-size: 12px;
 }
+
 th, td {
-    border: 1px solid #d1d5db;
-    padding: 7px 11px;
+    padding: 10px 14px;
     text-align: left;
+    border-bottom: 1px solid var(--border-color);
 }
+
 th {
-    background: #eef2ff;
-    font-weight: 700;
-    color: #312e81;
-}
-blockquote {
-    border-left: 4px solid #6366f1;
-    margin: 14px 0;
-    padding: 12px 18px;
     background: #f8fafc;
-    color: #334155;
-    font-size: 10.5px;
-    border-radius: 0 6px 6px 0;
+    font-weight: 600;
+    color: var(--text-dark);
+    border-bottom: 2px solid var(--border-color);
 }
-blockquote p {
-    margin: 6px 0;
+
+tr:last-child td {
+    border-bottom: none;
 }
-code {
-    background: #f1f5f9;
-    padding: 1px 5px;
-    border-radius: 3px;
-    font-size: 10px;
-    font-family: 'Consolas', 'Courier New', monospace;
-}
-pre {
-    background: #1e1e2e;
-    color: #cdd6f4;
-    padding: 14px;
-    border-radius: 8px;
-    font-size: 10px;
-    overflow-x: auto;
-    line-height: 1.6;
-}
-pre code {
-    background: none;
-    padding: 0;
-    color: inherit;
-}
-ul {
-    padding-left: 20px;
-}
-li {
-    margin: 4px 0;
-}
-strong {
-    color: #1e1b4b;
-}
+
+/* Alerts */
 .alert {
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin: 14px 0;
-    font-size: 10.5px;
-    line-height: 1.7;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin: 20px 0;
+    font-size: 12px;
 }
+
+.alert-title {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+    color: inherit;
+    opacity: 0.8;
+}
+
 .alert-note {
     background: #eff6ff;
     border-left: 4px solid #3b82f6;
+    color: #1e40af;
 }
+
 .alert-tip {
     background: #f0fdf4;
     border-left: 4px solid #22c55e;
+    color: #166534;
 }
+
 .alert-important {
     background: #faf5ff;
     border-left: 4px solid #a855f7;
+    color: #6b21a8;
 }
+
 .alert-warning {
     background: #fffbeb;
     border-left: 4px solid #f59e0b;
+    color: #92400e;
 }
+
 .alert-caution {
     background: #fef2f2;
     border-left: 4px solid #ef4444;
+    color: #991b1b;
 }
+
+/* Code & Pre */
+.code-wrapper {
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+pre {
+    background: #1e293b;
+    color: #f8fafc;
+    padding: 16px;
+    margin: 0;
+    font-size: 11.5px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    overflow-x: auto;
+}
+
+code {
+    font-family: 'Consolas', 'Courier New', monospace;
+    background: #e2e8f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+    color: #0f172a;
+}
+
+pre code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+}
+
+blockquote {
+    border-left: 4px solid var(--primary-light);
+    background: #f1f5f9;
+    padding: 12px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--text-muted);
+}
+
+blockquote p {
+    margin: 4px 0;
+}
+
+strong {
+    color: var(--bg-dark);
+    font-weight: 600;
+}
+
 a {
-    color: #6366f1;
+    color: var(--primary);
     text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px dashed var(--primary);
 }
+
+a:hover {
+    color: var(--secondary);
+    border-bottom-style: solid;
+}
+
+/* Print Styles */
 @media print {
-    body { padding: 0; }
-    h1 { page-break-before: auto; }
-    h2 { page-break-before: auto; page-break-after: avoid; }
-    table, pre, blockquote { page-break-inside: avoid; }
+    body {
+        background: transparent;
+        padding: 0;
+    }
+    .slide-card {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        margin-bottom: 0;
+        page-break-after: always;
+        border-radius: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+    .slide-card::before {
+        display: none;
+    }
+    a {
+        border: none;
+    }
 }
 </style>
 </head>
 <body>
-<p>﻿# ゼミ中間発表 資料構成＆発表原稿【完成版】</p>
+<div class="slide-card first-card"><h1 class="slide-main-title">ゼミ中間発表 資料構成＆発表原稿【完成版・改訂】</h1>
 
 <blockquote>
 <p><strong>テーマ</strong>: 就活の固定概念を壊す  </p>
@@ -148,14 +360,16 @@ a {
 <p><strong>日時</strong>: 2026年6月17日(水) 15:00〜17:00  </p>
 <p><strong>場所</strong>: 関西国際大学 神戸山手キャンパス 3号館  </p>
 <p><strong>持ち時間</strong>: 7分間 ＋ 質疑応答  </p>
-<p><strong>発表者</strong>: 京都産業大学 現代社会学部</p>
+<p><strong>発表者</strong>: 京都産業大学 現代社会学部  </p>
 </blockquote>
 
-<hr>
+</div>
+<div class="slide-card">
+<hr class="slide-divider">
 
-<h2>スライド構成案（全7枚）</h2>
+<h2 class="slide-section-title">スライド構成案（全8枚）</h2>
 
-<table>
+<div class="table-wrapper"><table>
 <thead><tr>
 <th>#</th>
 <th>スライドタイトル</th>
@@ -176,159 +390,96 @@ a {
 </tr>
 <tr>
 <td>3</td>
-<td>研究テーマ＆解決すべき問題</td>
+<td>解決すべき問題：三者が直面する「課題」</td>
 <td>富士野</td>
-<td>1分15秒</td>
+<td>1分00秒</td>
 </tr>
 <tr>
 <td>4</td>
-<td>テーマを選んだ理由</td>
+<td>なぜ「スマホアプリ」なのか？</td>
 <td>佐田野</td>
-<td>1分30秒</td>
+<td>1分00秒</td>
 </tr>
 <tr>
 <td>5</td>
-<td>問題解決の意義</td>
+<td>Essenceが提供する「3つの本質的価値」</td>
 <td>石川</td>
 <td>1分30秒</td>
 </tr>
 <tr>
 <td>6</td>
-<td>取り組み計画：Essenceによる解決策</td>
+<td>実証実験：Essenceによるアプローチ</td>
 <td>田窪</td>
-<td>1分</td>
+<td>1分00秒</td>
 </tr>
 <tr>
 <td>7</td>
-<td>今後の展望＆まとめ</td>
+<td>研究の真のゴールとロードマップ</td>
 <td>田窪</td>
-<td>30秒</td>
+<td>1分00秒</td>
 </tr>
-</tbody></table>
+<tr>
+<td>8</td>
+<td>まとめ：就活の固定概念を壊す挑戦</td>
+<td>田窪</td>
+<td>15秒</td>
+</tr>
+</tbody></table></div>
 
 <p><strong>合計: 約7分</strong></p>
 
-<hr>
+</div>
+<div class="slide-card">
+<hr class="slide-divider">
 
-<h2>アプリ「Essence」概要</h2>
+<h2 class="slide-section-title">スライド1: 表紙</h2>
 
-<div class="alert alert-note">
-<strong>NOTE</strong>
-<p>以下はアプリの実際のコードから抽出した機能一覧です。発表スライドでの説明に活用してください。</p>
-</blockquote>
-
-<h3>コンセプト</h3>
-<p>「<strong>無意識から、本質を導く。</strong>」  </p>
-<p>履歴書のラベルではなく、日常の言動からにじみ出る「本質的な能力」だけで企業とマッチングする、ES不要・完全匿名の次世代就活プラットフォーム。</p>
-
-<h3>技術スタック</h3>
+<h3 class="slide-sub-title">記載内容</h3>
 <ul>
-<li><strong>フレームワーク</strong>: Next.js (App Router, TypeScript)</li>
-<li><strong>データベース</strong>: Supabase (PostgreSQL + Auth)</li>
-<li><strong>AIエンジン</strong>: Gemini 2.5 Flash</li>
-</ul>
-
-<h3>主要機能（4ステップ）</h3>
-
-<pre><code class="">
-① 記録する → ② AIが分析 → ③ プロファイル生成 → ④ スカウトを受ける
-</code></pre>
-
-<table>
-<thead><tr>
-<th>機能</th>
-<th>詳細</th>
-</tr></thead><tbody>
-<tr>
-<td><strong>ライフログ入力</strong></td>
-<td>毎日の気づき・学び・出来事をテキストで記録</td>
-</tr>
-<tr>
-<td><strong>AIサニタイズ（匿名化）</strong></td>
-<td>個人名・大学名・企業名を <code>[個人名]</code> <code>[大学名]</code> <code>[企業名]</code> に自動マスク</td>
-</tr>
-<tr>
-<td><strong>スキル抽出</strong></td>
-<td>テキストからスキル名・レベル（S〜C）・抽出理由をAIが自動抽出</td>
-</tr>
-<tr>
-<td><strong>6大インサイトスコア</strong></td>
-<td>論理的思考・課題解決力・自律性・創造性・協調性・リーダーシップの6軸で定量評価</td>
-</tr>
-<tr>
-<td><strong>自己発見ダッシュボード</strong></td>
-<td>レーダーチャートでスコアを可視化、スキル一覧、ログのタイムライン</td>
-</tr>
-<tr>
-<td><strong>匿名タレントプール（企業側）</strong></td>
-<td>企業はスキル・インサイトスコアのみで人材を検索。氏名・大学名は非表示</td>
-</tr>
-<tr>
-<td><strong>スカウト機能</strong></td>
-<td>企業が匿名プロフィールに対してスカウトを送信。学生が承諾して初めて個人情報が開示される</td>
-</tr>
-<tr>
-<td><strong>長文スマート分割</strong></td>
-<td>4000文字超のテキストは文章境界で自動2分割し、それぞれ別ログとして保存</td>
-</tr>
-<tr>
-<td><strong>自動リトライ＆レート制限対応</strong></td>
-<td>429エラー時に待機時間を検知し、カウントダウン表示＋自動リトライ</td>
-</tr>
-</tbody></table>
-
-<hr>
-
-<h2>アプリ画面イメージ</h2>
-
-<h3>ランディングページ</h3>
-<p><strong>[Essenceランディングページ — 「無意識から、本質を導く。」のキャッチコピーとパーティクルアニメーション背景]</strong></p>
-
-<h3>学生ダッシュボード（レーダーチャート＋スキル一覧）</h3>
-<p><strong>[学生ダッシュボード — 6大インサイトスコアのレーダーチャート、抽出されたスキル一覧、スカウト通知]</strong></p>
-
-<h3>AI解析結果（サニタイズ＋スキル抽出＋インサイト変化）</h3>
-<p><strong>[AI解析結果 — サニタイズ済みテキスト、抽出されたスキル（S〜C）、インサイトスコアの増減]</strong></p>
-
-<h3>企業側：匿名タレントプール</h3>
-<p><strong>[匿名タレントプール — 企業がスキルとインサイトスコアだけで人材を検索・スカウト]</strong></p>
-
-<hr>
-
-<h2>スライド1: 表紙</h2>
-
-<h3>記載内容</h3>
-<ul>
-<li><strong>タイトル</strong>: 就活の固定概念を壊す</li>
+<li><strong>タイトル</strong>: <strong>就活の固定概念を壊す</strong> <em>(メインメッセージとして中央に最も大きく配置)</em></li>
 <li><strong>サブタイトル</strong>: 一人ひとりに合った就活の実現を目指して</li>
-<li><strong>大学名</strong>: 京都産業大学</li>
-<li><strong>学部</strong>: 現代社会学部</li>
-<li><strong>メンバー</strong>（学科・フルネーム）:</li>
-<li>田窪 雄一郎（現代社会学部）</li>
-<li>富士野 駿斗（現代社会学部）</li>
-<li>佐田野 和俊（現代社会学部）</li>
-<li>石川 叶翔（現代社会学部）</li>
+<li><span class="subtle-meta"><em>所属・メンバー</em></span>:</li>
+<li>京都産業大学 現代社会学部</li>
+<li>田窪 雄一郎 / 富士野 駿斗 / 佐田野 和俊 / 石川 叶翔</li>
 </ul>
 
 <div class="alert alert-tip">
-<strong>TIP</strong>
-<p>表紙はインパクト重視。田窪さんがAIツールで作成したビジュアル（「偏差値文系」のインパクトデザイン）を活用する。</p>
+<strong class="alert-title">TIP</strong>
+<p>デザインは「偏差値文系」等の過度な誇張表現を避け、メインメッセージが真っ先に目に飛び込んでくるようシンプルかつ洗練された配置にします。</p>
 </blockquote>
 
-<hr>
+<h3 class="slide-sub-title">発表原稿（田窪 雄一郎）</h3>
+<blockquote>
+<p>皆さん、こんにちは。京都産業大学 現代社会学部の田窪、富士野、佐田野、石川です。</p>
+</div>
+<p>></p>
+<blockquote>
+<p>私たちは「就職活動」という、大学生にとって最も身近でありながら、多くの違和感を抱えるテーマについて研究を進めています。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>本日は「就活の固定概念を壊す — 一人ひとりに合った就活の実現を目指して」というテーマで、私たちが開発したアプリと、それを通じた研究計画について発表します。よろしくお願いいたします。</p>
+</blockquote>
 
-<h2>スライド2: つかみ</h2>
+</div>
+<div class="slide-card">
+<hr class="slide-divider">
 
-<h3>スライドの方向性</h3>
+<h2 class="slide-section-title">スライド2: つかみ：あなたの就活、本当にあなた？</h2>
+
+<h3 class="slide-sub-title">記載内容</h3>
 <ul>
-<li>就活に関するインパクトあるビジュアル（表紙のデザインと連動）</li>
-<li>聴衆（3〜4回生）の共感を引く問いかけ</li>
+<li><strong>問いかけ</strong>: 「本当にあなたらしい就活ができていますか？」</li>
+<li><strong>現状の違和感</strong>:</li>
+<li>テンプレート化された「ガクチカ」や「自己PR」</li>
+<li>決められたフォーマットに自分を無理やり当てはめる息苦しさ</li>
+<li><strong>メインメッセージ</strong>:</li>
+<li><div class="main-message-box message-prominent"><em>「個性を殺すテンプレート就活」から「日常からにじみ出る本質的な就活」へ</em></div></li>
 </ul>
 
-<h3>発表原稿（富士野 駿斗）</h3>
-
+<h3 class="slide-sub-title">発表原稿（富士野 駿斗）</h3>
 <blockquote>
-<p>突然ですが、皆さんにお聞きしたいことがあります。</p>
+<p>突然ですが、会場の皆さんに問いかけさせてください。</p>
 </blockquote>
 <p>></p>
 <blockquote>
@@ -336,316 +487,235 @@ a {
 </blockquote>
 <p>></p>
 <blockquote>
-<p>私自身、就職活動を経験する中で、強く感じたことがあります。エントリーシートでは決められたフォーマットに、自分を無理やり当てはめなければならない。面接では「ガクチカ」や「自己PR」というテンプレートに沿って話すことを求められる。</p>
+<p>私自身、就職活動を経験する中で強く感じたことがあります。エントリーシートでは決められたフォーマットに自分を無理やり当てはめ、面接では「ガクチカ」というテンプレートに沿って回答することを求められます。</p>
 </blockquote>
 <p>></p>
 <blockquote>
-<p>その結果、本来一人ひとり違うはずの学生が、みんな同じような自己紹介をして、同じような回答をしている。企業側も、本当にその人の本質を見られているのか。</p>
+<p>その結果、本来一人ひとり違うはずの学生が、みんな同じような自己紹介をして、同じような回答を繰り返すことになります。</p>
 </blockquote>
 <p>></p>
 <blockquote>
 <p>この「型にはまった就活」——これこそが、私たちが壊したいと考えている固定概念です。</p>
 </blockquote>
-<p>></p>
-<blockquote>
-<p>私たちの研究テーマは、<strong>「就活の固定概念を壊す」</strong> です。</p>
-</blockquote>
 
-<hr>
-
-<h2>スライド3: 研究テーマ＆解決すべき問題</h2>
-
-<h3>スライド内容（図解推奨）</h3>
-<ul>
-<li><strong>研究テーマ</strong>: 就活の固定概念を壊す</li>
-<li><strong>解決すべき3つの問題</strong>:</li>
-</ul>
-
-<pre><code class="">
-┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐
-│   🎓 学生側      │    │   🏢 企業側      │    │   🔄 マッチング  │
-│                  │    │                  │    │                  │
-│ 本質を見てもらえ │    │ 優秀な人材を     │    │ 学生と企業の     │
-│ ない画一的な     │    │ 取りこぼす       │    │ 最適な出会いが   │
-│ 自己アピール     │    │ テンプレ選考     │    │ 実現できていない │
-└──────────────────┘    └──────────────────┘    └──────────────────┘
-</code></pre>
-
-<h3>発表原稿（富士野 駿斗）</h3>
-
-<blockquote>
-<p>現在の就職活動制度には、大きく分けて3つの問題があると考えています。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>1つ目は <strong>学生側の問題</strong> です。現在の就活では、エントリーシートや面接が画一化されており、学生一人ひとりの本質的な強みや個性が十分に伝わりにくい構造になっています。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>2つ目は <strong>企業側の問題</strong> です。テンプレート化された選考プロセスでは、本当に自社に合った優秀な人材を取りこぼしてしまうリスクがあります。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>3つ目は <strong>マッチングの問題</strong> です。学生と企業、双方が本質的な部分で出会えていないために、入社後のミスマッチや早期離職といった社会的な課題にもつながっています。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>私たちは、この「現在の就活制度で本質を見られていない学生をなくす」ことを最終ゴールに設定して、研究に取り組んでいます。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>それでは、なぜこのテーマを選んだのか、佐田野からお話しします。</p>
-</blockquote>
-
-<hr>
-
-<h2>スライド4: テーマを選んだ理由</h2>
-
-<h3>スライド内容</h3>
-<ul>
-<li>授業内でのブレインストーミングの経緯</li>
-<li>3つの課題の特定プロセス</li>
-<p>  1. 学生の本質ベースの就活が受けられていない</p>
-<p>  2. 企業の優秀な人材取りこぼし</p>
-<p>  3. 学生と企業のマッチング精度の低下</p>
-<li>実体験に基づく問題意識</li>
-</ul>
-
-<h3>発表原稿（佐田野 和俊）</h3>
-
-<blockquote>
-<p>では、なぜ私たちはこのテーマを選んだのか、その背景をお話しします。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>きっかけは、このゼミの授業の中で行ったブレインストーミングでした。メンバーそれぞれが日頃感じている社会課題を出し合う中で、就職活動に対する疑問や不満が多く挙がりました。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>特に、4回生の富士野が実際に就職活動を経験する中で、「見てほしい部分を見てもらえない」「やりたいことに辿り着けない」という実感を持っていました。また、3回生のメンバーも、これから就活を控える中で、漠然とした不安を共有していました。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>そこで私たちは、この問題を3つの課題に整理しました。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>第一に、学生が自分の本質をベースにした就職活動を受けられていないこと。第二に、企業側が優秀な人材を取りこぼしていること。そして第三に、両者のマッチング精度が低いこと。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>この3つの課題を解決することが、一人ひとりに合った就活の実現につながると考え、このテーマを選びました。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>では、この問題を解決することにどのような意義があるのか、石川からお話しします。</p>
-</blockquote>
-
-<hr>
-
-<h2>スライド5: 問題解決の意義</h2>
-
-<h3>スライド内容（未来像の図解）</h3>
-
-<pre><code class="">
-     解決前                          解決後
-┌─────────────┐              ┌──────────────────┐
-│ 🎓 画一的な │   ───→     │ 🎓 自分らしい    │
-│    就活     │              │    就活           │
-├─────────────┤              ├──────────────────┤
-│ 🏢 取りこぼ │   ───→     │ 🏢 最適な人材    │
-│    し       │              │    採用           │
-├─────────────┤              ├──────────────────┤
-│ 😞 早期離職 │   ───→     │ 😊 長期活躍      │
-│ ミスマッチ  │              │ 適材適所         │
-└─────────────┘              └──────────────────┘
-</code></pre>
-
-<h3>発表原稿（石川 叶翔）</h3>
-
-<blockquote>
-<p>続いて、この問題を解決することの意義についてお話しします。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>もし、就活の固定概念を壊して、一人ひとりに合った就職活動が実現できたら、どのような未来が待っているでしょうか。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>まず <strong>学生にとって</strong> は、自分の本当の強みや個性をベースに就職先を選べるようになります。「ガクチカ」のテンプレートに自分を合わせるのではなく、自分らしいアピールができる。その結果、入社後のギャップが減り、長く活躍できる環境に出会える可能性が高まります。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>次に <strong>企業にとって</strong> は、テンプレートでは見えなかった学生の本質的な魅力に気づくことができ、自社の文化やニーズに本当に合った人材を採用できるようになります。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>そして <strong>社会全体</strong> で見れば、早期離職の減少や、労働市場における人材のミスマッチの解消に貢献できると考えています。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>私たちは、この「一人ひとりに合った就活の実現」こそが、この研究の意義であると考えています。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>では、この問題を具体的にどう解決するのか、田窪からお話しします。</p>
-</blockquote>
-
-<hr>
-
-<h2>スライド6: 取り組み計画 — Essenceによる解決策</h2>
-
-<h3>スライド内容</h3>
-<ul>
-<li><strong>なぜアプリなのか？</strong>（他の手段との比較）</li>
-<li><strong>Essenceの仕組み</strong>（4ステップ図）</li>
-<li><strong>主要機能</strong>（スクリーンショット付き）</li>
-<li><strong>現在の進捗</strong></li>
-</ul>
-
-<div class="alert alert-important">
-<strong>IMPORTANT</strong>
-<p>このスライドでは、上記のアプリ画面イメージを活用してください。特に「AI解析結果」と「匿名タレントプール」のスクリーンショットが効果的です。</p>
-</blockquote>
-
-<h3>発表原稿（田窪 雄一郎）</h3>
-
-<blockquote>
-<p>私たちがこの問題の解決策として開発したのが、<strong>「Essence」</strong> というWebアプリケーションです。</p>
 </div>
-<p>></p>
-<blockquote>
-<p>まず、なぜアプリなのか。企業に「採用方法を変えてください」と直接提言するのは現実的ではありません。アンケート調査だけでは問題の可視化はできても、実質的な解決にはつながりません。私たち学生が現実的にできる範囲で、かつスケール可能な解決策を考えた結果、アプリという手段に行き着きました。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>Essenceの仕組みはシンプルです。学生は日常の気づきや学びをテキストで記録するだけ。AIが自動的に個人情報をマスクした上で、「論理的思考」「課題解決力」「協調性」など6つの軸でその人の本質的な能力をスコアリングします。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>企業側には、名前も大学名も一切見えません。見えるのは、その学生の能力データだけ。本質に惹かれた企業だけがスカウトを送り、学生が承諾して初めて個人情報が開示される——完全匿名のマッチングです。</p>
-</blockquote>
-<p>></p>
-<blockquote>
-<p>現在、アプリの開発は完了しており、メンバー間で1〜2週間のデータ収集を行っている段階です。</p>
-</blockquote>
+<div class="slide-card">
+<hr class="slide-divider">
 
-<hr>
+<h2 class="slide-section-title">スライド3: 解決すべき問題：三者が直面する「課題」</h2>
 
-<h2>スライド7: 今後の展望＆まとめ</h2>
-
-<h3>スライド内容</h3>
+<h3 class="slide-sub-title">記載内容</h3>
 <ul>
-<li><strong>春学期のゴール</strong>（7月15日 最終発表まで）</li>
-<li>収集データの分析・考察</li>
-<li>ABテスト等の社会調査的手法の検討</li>
-<li>解決策の具体的提示</li>
-<li><strong>年間計画</strong>（秋学期も継続予定）</li>
-<li><strong>まとめ</strong>: 「就活の固定概念を壊す」挑戦の現在地</li>
+<li><strong>三者が直面して困っている問題</strong> <em>(対比しやすいよう並列で配置)</em>:</li>
+<li><strong>🎓 学生が直面する問題</strong>:</li>
+<li>画一的な選考フォーマット（ESや面接）を強要され、本来の強みや個性をアピールできず、<strong>「本質を見てもらえない」</strong>。</li>
+<li><strong>🏢 企業が直面する問題</strong>:</li>
+<li>テンプレート化された回答ばかりの選考プロセスでは、自社の文化やニーズに本当に合う優秀な人材を<strong>「取りこぼす」</strong>。</li>
+<li><strong>🔄 社会が直面する問題</strong>:</li>
+<li>双方が本質で出会えないため、入社後のギャップによる<strong>「早期離職（3年以内3割の離職）」</strong>やミスマッチが解消されない。</li>
+<li><strong>メインメッセージ</strong>:</li>
+<li><div class="main-message-box message-standard"><em>誰も望んでいない「テンプレ選考」が、ミスマッチと早期離職を生み出している</em></div></li>
 </ul>
 
-<h3>発表原稿（田窪 雄一郎）</h3>
+<h3 class="slide-sub-title">発表原稿（富士野 駿斗）</h3>
+<blockquote>
+<p>私たちは、現在の就活制度において、三者がそれぞれ異なる「困りごと」に直面していると考えます。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>まず、<strong>学生側</strong>は、画一的な選考を強要されることで、自分の本質的な強みを見てもらえないことに悩んでいます。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>一方で、<strong>企業側</strong>も、テンプレート化された回答ばかりの選考では、自社に本当にマッチする多様な優秀層を取りこぼすリスクに直面しています。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>そして<strong>社会全体</strong>としては、このミスマッチが「入社後3年以内の早期離職が3割を超える」という、深刻な社会的・経済的損失に直結しています。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>この三者の課題を解決することが、一人ひとりに合った就活の実現に不可欠です。次に、なぜ私たちがその解決に「スマホアプリ」を選んだのか、佐田野から説明します。</p>
+</blockquote>
 
+</div>
+<div class="slide-card">
+<hr class="slide-divider">
+
+<h2 class="slide-section-title">スライド4: なぜ「スマホアプリ」なのか？</h2>
+
+<h3 class="slide-sub-title">記載内容</h3>
+<ul>
+<li><strong>課題に対するアプローチの選定</strong>:</li>
+<li>単なる「提言」や「意識調査（アンケート）」だけでは、実際の就活の現場を変えることはできない。</li>
+<li><strong>スマホアプリがベストである3つの理由</strong>:</li>
+<p>  1. <strong>日常的なデータの蓄積</strong>: 面接用に捏造するエピソードではなく、日々の行動や気づき（ライフログ）を自然に蓄積できる。</p>
+<p>  2. <strong>手軽さと継続性</strong>: 常に持ち歩くスマホだからこそ、心理的ハードルを下げて手軽に記録を継続できる。</p>
+<p>  3. <strong>AIによる客観的な抽出</strong>: 蓄積された生テキストから、AIが個人情報を自動サニタイズした上で、6大能力（インサイト）とスキルを客観的に抽出する。</p>
+<li><strong>メインメッセージ</strong>:</li>
+<li><div class="main-message-box message-standard"><em>スマホアプリこそ、偽りのない「日常の行動データ」を蓄積し、本質を可視化できる唯一の手段である</em></div></li>
+</ul>
+
+<h3 class="slide-sub-title">発表原稿（佐田野 和俊）</h3>
 <blockquote>
-<p>最後に、今後の展望をお話しします。</p>
+<p>課題を整理した上で、私たちは「なぜスマホアプリという手段が必要なのか」を議論しました。</p>
 </blockquote>
 <p>></p>
 <blockquote>
-<p>春学期の最終発表は7月15日を予定しています。それまでに、収集したデータの分析と考察を行い、「一人ひとりに合った就活」の具体的な解決策を提示することを目標としています。</p>
+<p>既存の就活制度に対して「アンケートをとって提言する」だけでは、学生の行動や企業の選考プロセスを実際に変えることはできません。</p>
 </blockquote>
 <p>></p>
 <blockquote>
-<p>また、この研究は秋学期も継続して取り組む予定です。例えば、アプリのUI/UXについてABテストを行うなど、現代社会学部らしい社会調査的な手法も取り入れながら、より精度の高いアプローチを模索していきたいと考えています。</p>
+<p>スマホアプリであれば、学生が日頃から何気なく記録する気づきや学びを、無意識のうちに「日常の行動データ」として蓄積できます。就活の時期になって慌てて作るガクチカとは異なり、日々のありのままの思考プロセスがデータとして残るのです。</p>
 </blockquote>
 <p>></p>
 <blockquote>
-<p>私たちは「就活の固定概念を壊す」という大きなテーマに挑戦しています。まだ道半ばではありますが、一人ひとりが自分らしい就職活動ができる未来の実現に向けて、引き続き取り組んでまいります。</p>
+<p>常に持ち歩くスマホだからこそ手軽に継続でき、さらにそれをAIが客観的に分析してスキルや適性を抽出する。この日常のデジタルログの蓄積こそが、固定概念を壊すための最も現実的で強力な手段であると考えました。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>では、このアプリを通じて、学生や企業にどのような「価値」をもたらすのか、石川からお話しします。</p>
+</blockquote>
+
+</div>
+<div class="slide-card">
+<hr class="slide-divider">
+
+<h2 class="slide-section-title">スライド5: Essenceが提供する「3つの本質的価値」</h2>
+
+<h3 class="slide-sub-title">記載内容</h3>
+<ul>
+<li><strong>三者に提供される本質的なメリット（スライド3の課題と対比）</strong>:</li>
+<li><strong>🎓 学生への価値：【ES不要・完全匿名】</strong></li>
+<li>日常のログを書くだけで自分の強みがデータ化され、本質を評価した企業からスカウトが届く。</li>
+<li><strong>🏢 企業への価値：【スペック・テンプレ不問】</strong></li>
+<li>大学名やESのテンプレート回答ではなく、AIが客観抽出した行動データから、本当に自社で活躍できる人材を探せる。</li>
+<li><strong>🔄 社会への価値：【ミスマッチの解消】</strong></li>
+<li>本質データに基づくマッチングにより、早期離職のない「適材適所」の労働市場を実現する。</li>
+<li><strong>メインメッセージ</strong>:</li>
+<li><div class="main-message-box message-hero"><em>スペック（大学名）やテンプレート（ES）を排除し、純粋な「能力データ」だけで出会える価値を提供する</em></div></li>
+</ul>
+
+<h3 class="slide-sub-title">発表原稿（石川 叶翔）</h3>
+<blockquote>
+<p>続いて、私たちが開発した「Essence」が、三者にどのような「価値（メリット）」を提供するのかについてお話しします。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>まず<strong>学生にとって</strong>の価値は、「エントリーシート不要の、完全匿名による就職活動」です。日常のログを書くだけで、AIが客観的に強みを抽出し可視化します。嘘偽りのない本質的な自分を見て、企業がスカウトを送ってくれます。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p><strong>企業にとって</strong>の価値は、「大学名やテンプレートに頼らない、本質的なマッチング」です。偏差値やESの出来栄えではなく、AIが抽出した実際の行動データやスキルに基づいて、自社に必要な人材を精度高く見つけ出すことができます。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>その結果、<strong>社会全体</strong>において、入社後のギャップが減少し、早期離職やミスマッチのない「適材適所の社会」が実現されます。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>私たちは、スペックやテンプレートを排除し、純粋な「本質データ」だけで両者が出会える新しい価値を提供します。具体的なアプリの仕組みと進捗について、田窪からお話しします。</p>
+</blockquote>
+
+</div>
+<div class="slide-card">
+<hr class="slide-divider">
+
+<h2 class="slide-section-title">スライド6: 実証実験：Essenceによるアプローチ</h2>
+
+<h3 class="slide-sub-title">記載内容</h3>
+<ul>
+<li><strong>Essenceの基本フロー</strong>:</li>
+<li><code>① 日常ログの記録</code> → <code>② AIによる匿名化＆スキル抽出</code> → <code>③ ダッシュボード可視化</code> → <code>④ 匿名スカウト</code></li>
+<li><strong>主要な機能仕様（検証用の機能）</strong>:</li>
+<li>AIサニタイズ（大学名や個人名の自動マスク）</li>
+<li>6大インサイトスコア（論理的思考・課題解決力などの可視化）</li>
+<li>匿名タレントプール（企業側が能力データだけで検索可能）</li>
+<li><strong>現在の進捗</strong>:</li>
+<li>アプリ開発はすべて完了。現在、メンバー間で1〜2週間のログを蓄積する「実証実験」を実施中。</li>
+<li><strong>メインメッセージ</strong>:</li>
+<li><div class="main-message-box message-standard"><em>実際のアプリを稼働させ、本質データを検証する「実証実験」がスタート</em></div></li>
+</ul>
+
+<h3 class="slide-sub-title">発表原稿（田窪 雄一郎）</h3>
+<blockquote>
+<p>開発したアプリ「Essence」の具体的なアプローチについて説明します。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>学生は日常の学びや気づきをテキストで入力します。AIエンジンが個人情報を自動で伏せ、同時に「論理的思考力」などの6つのインサイトスコアとスキルレベルを自動抽出します。学生はダッシュボードで自己分析ができ、企業側は完全に匿名化された能力データのみを検索して、マッチした学生にスカウトを送信します。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>私たちはこのアプリをすでに本番環境へデプロイ完了しており、現在はゼミメンバー内で実際に1〜2週間のライフログを蓄積し、データがどのように可視化されマッチングに繋がるか、実証実験を行っています。</p>
+</blockquote>
+
+</div>
+<div class="slide-card">
+<hr class="slide-divider">
+
+<h2 class="slide-section-title">スライド7: 研究の真のゴールとロードマップ</h2>
+
+<h3 class="slide-sub-title">記載内容</h3>
+<ul>
+<li><strong>研究の真のゴール</strong>:</li>
+<li><div class="main-message-box message-hero"><em>「アプリを通じて集めた日常データを分析・考察し、画一的選考に代わる具体的な方策と社会的提言を導き出すこと」</em></div></li>
+<li><strong>今後のロードマップ</strong>:</li>
+<li><strong>【~6月中旬】データ蓄積と検証</strong></li>
+<li>メンバーによる実証実験の実施、日常ログの収集</li>
+<li><strong>【~6月下旬】データの分析・考察</strong></li>
+<li>収集したテキストログの傾向分析、AI評価の妥当性の検証</li>
+<li><strong>【~7月上旬】就活改革の方策作成</strong></li>
+<li>分析結果に基づく「本質評価型マッチング」の有効性の検証と提言の作成</li>
+<li><strong>【7月15日】最終発表</strong></li>
+<li>研究成果と就活改革の提言を発表</li>
+<li><strong>【秋学期（展望）】アプローチの深化</strong></li>
+<li>UI/UXのABテスト、他校を含む大規模な実証実験と社会調査的手法によるアプローチの深化</li>
+</ul>
+
+<h3 class="slide-sub-title">発表原稿（田窪 雄一郎）</h3>
+<blockquote>
+<p>ここで、本研究の真のゴールについて明確にさせてください。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>私たちのゴールは「アプリを開発して終わり」ではありません。このアプリは、就活の固定概念を壊すための「データ収集ツール」です。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>真のゴールは、この実証実験で集まった学生の「日常データ」を分析し、「テンプレートに頼らない選考プロセス」や「一人ひとりに合った就活」を現実的に実現するための具体的な方策や社会的提言を導き出すことです。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>最終発表である7月15日に向けて、今後はデータの分析・考察を進め、本質評価の妥当性を検証します。さらに秋学期には、社会調査的なアプローチを深めるため、UI/UXのABテストや、他大学の学生を巻き込んだ規模での検証を進めていく予定です。</p>
+</blockquote>
+
+</div>
+<div class="slide-card">
+<hr class="slide-divider">
+
+<h2 class="slide-section-title">スライド8: まとめ：就活の固定概念を壊す挑戦</h2>
+
+<h3 class="slide-sub-title">記載内容</h3>
+<ul>
+<li><strong>私たちの挑戦</strong>:</li>
+<li>就活の固定概念（テンプレート、偏差値スペック）を壊し、誰もが本質で評価される社会へ。</li>
+<li><strong>メインメッセージ</strong>:</li>
+<li><div class="main-message-box message-hero"><em>「一人ひとりが自分らしく、本質で評価される就職活動の実現に向けて」</em></div></li>
+</ul>
+
+<h3 class="slide-sub-title">発表原稿（田窪 雄一郎）</h3>
+<blockquote>
+<p>私たちは、「就活の固定概念を壊す」という大きなテーマに挑戦しています。</p>
+</blockquote>
+<p>></p>
+<blockquote>
+<p>まだ実証実験の第一歩を踏み出したばかりですが、誰もがテンプレートに縛られず、自分らしさを活かして本質で評価される、そんな新しい就職活動のあり方をデータとテクノロジーで証明していきます。</p>
 </blockquote>
 <p>></p>
 <blockquote>
 <p>ご清聴ありがとうございました。</p>
 </blockquote>
-
-<hr>
-
-<h2>質疑応答 想定Q&A</h2>
-
-<div class="alert alert-tip">
-<strong>TIP</strong>
-<p>MTGで「Q&Aスライドを用意して的中させたい」という話が出ていました。以下を最終スライドの後ろに隠しスライドとして仕込んでおくと効果的です。</p>
-</blockquote>
-
-<table>
-<thead><tr>
-<th>#</th>
-<th>想定質問</th>
-<th>回答案</th>
-</tr></thead><tbody>
-<tr>
-<td><strong>Q1</strong></td>
-<td>なぜアンケートではなくアプリなのか？</td>
-<td>アンケートは一時的な調査には有効ですが、継続的なデータ収集と本質的な解決にはつながりにくいと考えました。アプリなら日常的な行動データを蓄積し、より深い分析が可能です。また、私たち学生が現実的にできる範囲で、将来的にスケール可能な手段として選びました。</td>
-</tr>
-<tr>
-<td><strong>Q2</strong></td>
-<td>アプリでどのようなデータが取れるのか？</td>
-<td>学生が日常の気づきや学びを記録したテキストをAIが解析し、①個人情報を除去したサニタイズ済みテキスト、②スキルとそのレベル（S〜C）、③論理的思考・課題解決力・自律性・創造性・協調性・リーダーシップの6軸のインサイトスコアを抽出します。</td>
-</tr>
-<tr>
-<td><strong>Q3</strong></td>
-<td>「固定概念」とは具体的に何を指すのか？</td>
-<td>「ガクチカ」「自己PR」といった画一的な選考フォーマット、業界・企業のブランドで就職先を選ぶ風潮、スーツを着て同じような受け答えをする面接文化など、学生の個性を埋没させる既存の就活プロセス全体を指しています。</td>
-</tr>
-<tr>
-<td><strong>Q4</strong></td>
-<td>既存の就活サービスとの違いは？</td>
-<td>ナビサイト等の既存サービスは企業情報の提供が中心です。Essenceは「学生の本質の可視化」という学生起点のアプローチで、完全匿名のプロフィールを通じて能力ベースのマッチングを実現する点が異なります。</td>
-</tr>
-<tr>
-<td><strong>Q5</strong></td>
-<td>匿名で本当にマッチングできるのか？</td>
-<td>Essenceでは日常の記録から抽出した6軸のインサイトスコアとスキル一覧を可視化しています。これはES上の自己申告ではなく、AIが客観的に評価したデータです。企業はこのデータをもとにスカウトを送り、学生が承諾して初めて個人情報が開示される仕組みにしており、双方にとって安心な設計になっています。</td>
-</tr>
-</tbody></table>
-
-<hr>
-
-<h2>発表時の注意事項</h2>
-
-<div class="alert alert-important">
-<strong>IMPORTANT</strong>
-<p><strong>坂口先生からの指示（MTGより抜粋）</strong></p>
-<p>- 聴衆は初めてこの話を聞く人。教員向けではなく、<strong>他校の3〜4回生の学生</strong> に分かるように話す</p>
-<p>- 手元のメモをずっと見ず、<strong>聴衆の方を向いて</strong> 話す</p>
-<p>- マイクを使う可能性あり。普段より声を張って</p>
-<p>- スライドのデザインは <strong>統一感</strong> を持たせる（マナー＆トーン）</p>
-<p>- <strong>全員に最低1回は出番</strong> があるようにする ✅</p>
-<p>- 来週（6/10）はリハーサル。<strong>骨格ができていればデザインは後回し</strong> でOK</p>
-<p>- Ana総合研究所のオブザーバーが全チームにコメント・質問する → 必ず1問は来る</p>
-<p>- 他校（関西国際大学・流通科学大学）の発表に対して <strong>必ず誰か質問する</strong> こと</p>
-</blockquote>
-
-<div class="alert alert-warning">
-<strong>WARNING</strong>
-<p>- <strong>服装</strong>: 特に正装は不要。ただし非常識でない格好で</p>
-<p>- <strong>集合</strong>: 14:50頃に3号館の分かりやすい場所に集合（田窪は16時前着予定でギリギリ → 迷わず来る！）</p>
-<p>- <strong>京都産業大学の発表順</strong>: 15:55頃の予定</p>
-</blockquote>
-
-<hr>
-
-<h2>発表の流れ（タイムライン）</h2>
-
-<pre><code class="">
-00:00 ─ 00:30  [田窪] 表紙・自己紹介
-00:30 ─ 01:15  [富士野] つかみ（就活の問題提起）
-01:15 ─ 02:30  [富士野] 研究テーマ＆解決すべき3つの問題
-02:30 ─ 04:00  [佐田野] テーマを選んだ理由
-04:00 ─ 05:30  [石川] 問題解決の意義
-05:30 ─ 06:30  [田窪] Essenceによる解決策（アプリ説明）
-06:30 ─ 07:00  [田窪] 今後の展望＆まとめ
-07:00 ─       質疑応答
-</code></pre>
-
+</div>
 </body>
 </html>
