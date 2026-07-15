@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>発表原稿（カンペ）v3 — 就活の固定概念を壊す</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* CSS Variables & Theme (Eye-friendly light theme) */
+:root {
+    --bg-main: #f1f5f9;
+    --bg-card: #ffffff;
+    --text-main: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    
+    /* Speaker Accents */
+    --color-takubo: #4f46e5;
+    --color-fujino: #0d9488;
+    --color-sadano: #7c3aed;
+    --color-ishikawa: #ea580c;
+    
+    --transition: all 0.2s ease;
+    --font-size-step: 18px; /* Default large size for presentation reading */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans JP', 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.8;
+    padding: 20px 10px 80px 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.page-wrapper {
+    width: 100%;
+    max-width: 680px;
+}
+
+/* Header & Controls */
+header {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.header-top {
+    margin-bottom: 16px;
+}
+
+.logo-badge {
+    background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: 900;
+    color: #0f172a;
+    line-height: 1.3;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+/* Control Panel (Sticky on mobile scroll if needed) */
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+}
+
+.control-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.btn-filter {
+    background-color: #f8fafc;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-filter:hover {
+    background-color: #f1f5f9;
+}
+
+.btn-filter.active {
+    color: #ffffff;
+}
+
+/* Speaker Active Colors */
+.btn-filter.active[data-speaker="all"] { background-color: #0f172a; border-color: #0f172a; }
+.btn-filter.active[data-speaker="takubo"] { background-color: var(--color-takubo); border-color: var(--color-takubo); }
+.btn-filter.active[data-speaker="fujino"] { background-color: var(--color-fujino); border-color: var(--color-fujino); }
+.btn-filter.active[data-speaker="sadano"] { background-color: var(--color-sadano); border-color: var(--color-sadano); }
+.btn-filter.active[data-speaker="ishikawa"] { background-color: var(--color-ishikawa); border-color: var(--color-ishikawa); }
+
+.size-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.btn-size {
+    background-color: #f8fafc;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.btn-size.active {
+    background-color: #0f172a;
+    color: #ffffff;
+    border-color: #0f172a;
+}
+
+/* Transcript Cards */
+.card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.script-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.script-card.hidden {
+    display: none;
+}
+
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.slide-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.slide-badge {
+    background-color: #f1f5f9;
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.slide-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.speaker-tag {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    color: #ffffff;
+}
+
+.speaker-takubo { background-color: var(--color-takubo); }
+.speaker-fujino { background-color: var(--color-fujino); }
+.speaker-sadano { background-color: var(--color-sadano); }
+.speaker-ishikawa { background-color: var(--color-ishikawa); }
+
+/* Text Sizing Classes */
+.text-body {
+    font-size: var(--font-size-step);
+    color: var(--text-main);
+    line-height: 1.8;
+}
+
+.text-body p {
+    margin-bottom: 16px;
+}
+
+.text-body p:last-child {
+    margin-bottom: 0;
+}
+
+.text-body strong {
+    color: #000000;
+    font-weight: 700;
+    background: linear-gradient(to bottom, transparent 60%, rgba(226, 232, 240, 0.8) 40%);
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    margin-top: 16px;
+}
+
+/* Q&A Section */
+.qa-section-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 32px 0 16px 0;
+    padding-left: 8px;
+    border-left: 4px solid #0f172a;
+}
+
+.qa-item {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.qa-trigger {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.qa-trigger::after {
+    content: '+';
+    font-size: 16px;
+    color: var(--text-muted);
+}
+
+.qa-item.open .qa-trigger::after {
+    content: '−';
+}
+
+.qa-content {
+    padding: 0 16px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out, padding 0.2s ease-out;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    background-color: #f8fafc;
+}
+
+.qa-item.open .qa-content {
+    padding: 16px;
+    max-height: 250px;
+    border-top: 1px solid var(--border);
+}
+
+/* Top button */
+.btn-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #0f172a;
+    color: #ffffff;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition);
+    z-index: 100;
+}
+
+.btn-top.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Font Sizing States */
+body.font-sm { --font-size-step: 15px; }
+body.font-md { --font-size-step: 18px; }
+body.font-lg { --font-size-step: 22px; }
+</style>
+</head>
+<body class="font-md">
+
+<div class="page-wrapper">
+    
+    <!-- Header with speaker filter & font size controller -->
+    <header>
+        <div class="header-top">
+            <div class="logo-badge">PRESENTER SCRIPT</div>
+            <h1>就活の固定概念を壊す — 発表原稿 (v3 起承転結版)</h1>
+            <p class="subtitle">京都産業大学 現代社会学部ゼミ中間発表用カンペ</p>
+        </div>
+        
+        <div class="controls-container">
+            <div>
+                <div class="control-label" style="margin-bottom: 6px;">担当話者で絞り込む</div>
+                <div class="filter-buttons">
+                    <button class="btn-filter active" data-speaker="all" onclick="filterSpeaker('all')">全員</button>
+                    <button class="btn-filter" data-speaker="takubo" onclick="filterSpeaker('takubo')">田窪</button>
+                    <button class="btn-filter" data-speaker="fujino" onclick="filterSpeaker('fujino')">富士野</button>
+                    <button class="btn-filter" data-speaker="sadano" onclick="filterSpeaker('sadano')">貞野</button>
+                    <button class="btn-filter" data-speaker="ishikawa" onclick="filterSpeaker('ishikawa')">石川</button>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="control-label">文字サイズ</span>
+                <div class="size-buttons">
+                    <button class="btn-size" id="size-sm" onclick="changeFontSize('sm')">小</button>
+                    <button class="btn-size active" id="size-md" onclick="changeFontSize('md')">中</button>
+                    <button class="btn-size" id="size-lg" onclick="changeFontSize('lg')">大</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Transcripts List -->
+    <div class="card-list">
+        
+        <!-- Slide 1 -->
+        <div class="script-card" data-speaker="takubo">
+            <div class="card-meta">
+                <div class="slide-info">
+                    <span class="slide-badge">スライド 1</span>
+                    <span class="slide-title">表紙</span>
+                </div>
+                <span class="speaker-tag speaker-takubo">田窪 佑一朗</span>
+            </div>
+            <div class="text-body">
+                <p>皆さん、こんにちは。京都産業大学 現代社会学部の田窪、富士野、貞野、石川です。</p>
+                <p>私たちは「就職活動」という、大学生にとって最も身近でありながら、多くの違和感を抱えるテーマについて研究を進めています。</p>
+                <p>本日は「就活の固定概念を壊す — 一人ひとりに合った就活の実現を目指して」というテーマで発表いたします。</p>
+            </div>
+            <div class="card-footer">
+                <span>目安時間: 約30秒</span>
+                <span>発表順: 1番目</span>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="script-card" data-speaker="takubo">
+            <div class="card-meta">
+                <div class="slide-info">
+                    <span class="slide-badge">スライド 6</span>
+                    <span class="slide-title">目次（アジェンダ）</span>
+                </div>
+                <span class="speaker-tag speaker-takubo">田窪 佑一朗</span>
+            </div>
+            <div class="text-body">
+                <p>本日の発表は、大きく4つのステップで進めてまいります。</p>
+                <p>まず、私たちが日常で感じた就活の違和感と、そこから整理した課題。</p>
+                <p>次に、なぜ私たちがスマホアプリという手法を選んだのか。</p>
+                <p>そして、実際にアプリを使って見えてきた結果と、そこから得られた「就活を超えた新たな気づき」。</p>
+                <p>最後に、この仕組みが解決した先の未来と、今後の展望についてお話しします。</p>
+            </div>
+            <div class="card-footer">
+                <span>目安時間: 約30秒</span>
+                <span>発表順: 6番目</span>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="script-card" data-speaker="fujino">
+            <div class="card-meta">
+                <div class="slide-info">
+                    <span class="slide-badge">スライド 6</span>
+                    <span class="slide-title">つかみ</span>
+                </div>
+                <span class="speaker-tag speaker-fujino">富士野 駿斗</span>
+            </div>
+            <div class="text-body">
+                <p>突然ですが、皆さんにお聞きしたいことがあります。</p>
+                <p>就職活動をしていて、「本当の自分の強みや個性を、企業にきちんと見てもらえているのだろうか」と感じたことはないでしょうか。</p>
+                <p>私自身、実際に就職活動を経験する中で、エントリーシートでは<strong>無理矢理</strong>決められた文字数に合わせて内容をまとめ、面接では定番化された質問、あるいは全く意図の分からない質問に答える場面が多くありました。その結果、本来一人ひとり異なるはずの学生が、似たような自己PRや回答をしているように感じました。</p>
+                <p>そこで私たちは、このような「型にはまった就職活動」の現状に着目し、「就活の固定概念を壊す」というテーマを設定しました。</p>
+            </div>
+            <div class="card-footer">
+                <span>目安時間: 約45秒</span>
+                <span>発表順: 6番目</span>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="script-card" data-speaker="fujino">
+            <div class="card-meta">
+                <div class="slide-info">
+                    <span class="slide-badge">スライド 6</span>
+                    <span class="slide-title">解決すべき問題</span>
+                </div>
+                <span class="speaker-tag speaker-fujino">富士野 駿斗</span>
+            </div>
+            <div class="text-body">
+                <p>また、この問題を解決するために、私たちは独自のアプリの開発・活用を通して研究を進めています。アプリの具体的な内容や仕組みについては、後ほど田窪から詳しく説明いたします。</p>
+                <p>私たちは、「<strong>本質を見てもらえる就職活動</strong>」を実現することを目標に研究を進めています。</p>
+                <p>それでは、まず私たちがなぜこのテーマに着目したのかについて、貞野からお話します。</p>
+            </div>
+            <div class="card-footer">
+                <span>目安時間: 約30秒</span>
+                <span>発表順: 6番目</span>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="script-card" data-speaker="sadano">
+            <div class="card-meta">
+                <div class="slide-info">
+                    <span class="slide-badge">スライド 6</span>
+                    <span class="slide-title">なぜ「スマホアプリ」なのか？</span>
+                </div>
+                <span class="speaker-tag speaker-sadano">貞野 和寿</span>
+            </div>
+            <div class="text-body">
+                <p>きっかけは、授業の中で行った身の回りの社会課題に関してのブレインストーミングでした。メンバーそれぞれが日頃感じている社会課題を出し合う中で、就職活動に対する疑問や不満が多く挙がりました。</p>
+                <p>特に、4回生の富士野が実際に就職活動を経験する中で、「見てほしい部分を見てもらえない」「やりたいことに辿り着けない」という実感を持っていました。また、3回生のメンバーも、これから就活を控える中で、漠然とした不安を共有していました。</p>
+                <p>そこで私たちは、この問題を3つの課題に整理しました。</p>
+                <p>第一に、学生が自分の本質をベースにした就職活動を行えていないことです。現在の就職活動では、エントリーシートや面接が画一化されていたり、文理系の区分でエントリーできるのに条件があったりと、学生一人ひとりの強みや個性が伝わりにくくなっています。</p>
+                <p>第二に、企業側が優秀な人材を取りこぼしていることです。テンプレート化された選考プロセスでは、本当に自社に合った優秀な人材を見極めることが難しく、取りこぼしてしまうリスクがあります。</p>
+                <p>そして第三に、学生と企業のマッチング精度が低いことです。双方がお互いの強みや価値観で出会えていないため、入社後のミスマッチや早期離職といった社会的課題にもつながっています。</p>
+                <p>このように、三つの課題を整理した上で、私たちは「スマホアプリの開発と活用」というアプローチを選びました。</p>
+                <p>なぜ、アンケート調査や提言書ではなく、アプリなのか。それは、アンケートでは就活生の「建前」しか集まらないからです。スマホアプリにすることで、学生の日常の無意識な気づきや学びを、バイアスなく蓄積できます。</p>
+                <p>さらに、実際に動くアプリを共通のプラットフォームとして導入することで、学生には日常の行動変容を促し、企業には新しい選考プロセスを疑似体験してもらうという、実践的な「社会実験」が可能になるからです。</p>
+                <p>では、この問題を解決することにどのような意義があるのか、石川からお話しします。</p>
+            </div>
+            <div class="card-footer">
+                <span>目安時間: 約1分30秒</span>
+                <span>発表順: 6番目</span>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="script-card" data-speaker="ishikawa">
+            <div class="card-meta">
+                <div class="slide-info">
+                    <span class="slide-badge">スライド 6</span>
+                    <span class="slide-title">誰がどう得をするのか？</span>
+                </div>
+                <span class="speaker-tag speaker-ishikawa">石川 奏翔</span>
+            </div>
+            <div class="text-body">
+                <p>続いて、この問題を解決することの意義についてお話しします。もし、就活の固定概念を壊して、一人ひとりに合った就職活動が実現できたら、どのような未来が待っているでしょうか。</p>
+                <p>このアプリのアプローチによって、一体誰がどう得をするのか、具体的なメリットをお話しします。</p>
+                <p>まず<strong>学生が得することは</strong>、「就活にかかる無駄な時間と精神的負担の激減」です。「ガクチカ」のテンプレートに自分を合わせたり、自己PRに悩む必要はありません。日常のログを書くだけで自分の強みがデータ化され、自分を求めてくれる企業から直接オファーが届くようになります。その結果、入社後のギャップが減り、長く活躍できる環境に出会える可能性が高まります。</p>
+                <p>次に<strong>企業が得することは</strong>、「隠れた優秀層の早期・確実な獲得」です。大学名やテンプレートに頼る選考ではなく、学生の日々のありのままの思考ログから、自社の文化やニーズに本当に合った人材を、競合他社に先んじて見極めて採用できます。</p>
+                <p>そして<strong>社会全体が得することは</strong>、「ミスマッチと早期離職による社会的損失の解消」です。双方が本質的なデータで繋がるため、入社後の『こんなはずじゃなかった』というギャップが消え、早期離職が減少します。結果として、採用や教育にかける莫大な社会的コストを削減できます。</p>
+                <p>私たちは、この全員が実質的なメリットを得られる、全員に「得」がある新しい就活のカタチこそが、この研究の意義であると考えています。</p>
+                <p>では、この問題を具体的にどう解決するのか、田窪からお話しします。</p>
+            </div>
+            <div class="card-footer">
+                <span>目安時間: 約1分30秒</span>
+                <span>発表順: 6番目</span>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="script-card" data-speaker="takubo">
+            <div class="card-meta">
+                <div class="slide-info">
+                    <span class="slide-badge">スライド 6</span>
+                    <span class="slide-title">実証実験：検証とメリット・デメリット</span>
+                </div>
+                <span class="speaker-tag speaker-takubo">田窪 佑一朗</span>
+            </div>
+            <div class="text-body">
+                <p>では、この課題を解決するために、私たちは具体的にどのようなアプローチをとっているのか。それが、日常ログを活用したプラットフォーム「Essence」の実証実験です。</p>
+                <p>実際にゼミのメンバーでアプリを使い、日常の気づきを記録してAI分析する実験を行いました。</p>
+                <p>そこで見えてきた最大の<strong>メリット</strong>は、これまで頭の中にしかなかった素朴な興味や目標が、日常ログとして記録され、AIによって自動で「強み」や「価値観」として可視化されるという、自己理解を促す点です。</p>
+                <p>一方でおきる、毎日記録を続ける習慣づけの難しさや、AI分析の精度がデータの量に依存すること、そして今回はまだ学生間での実験にとどまり、企業側の検証まで至っていない点が<strong>デメリット</strong>、つまり今後の課題として浮き彫りになりました。</p>
+            </div>
+            <div class="card-footer">
+                <span>目安時間: 約1分00秒</span>
+                <span>発表順: 7番目</span>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="script-card" data-speaker="takubo">
+            <div class="card-meta">
+                <div class="slide-info">
+                    <span class="slide-badge">スライド 7</span>
+                    <span class="slide-title">新たな気づき：就活を超えた「生き方の探求」へ</span>
+                </div>
+                <span class="speaker-tag speaker-takubo">田窪 佑一朗</span>
+            </div>
+            <div class="text-body">
+                <p>しかし、この実証実験を通じて、私たちは「就活支援」という枠組みを遥かに超える、全く新しい価値に気づきました。</p>
+                <p>メンバーの貞野からは、<strong>「日常を可視化してくれるのは自分を見つめる上でめっちゃ大事やし良い」「自己分析とAIのズレを追求していったら、より自分に対する理解度が上がる」</strong>という意見が出ました。</p>
+                <p>この「日常の記録とAI分析によって自己探求を深める」という仕組みは、就活生だけでなく、あらゆる人の「生き方の探求」に応用できます。</p>
+                <p>例えば、主体性を育む<strong>幼児教育</strong>、入社後のキャリア形成を支援する<strong>企業の人事研修</strong>、さらにはセカンドライフを模索する<strong>シニア層のキャリア再開発</strong>など、人生のあらゆるステージにおいて、隠れた本質や可能性を引き出すプラットフォームになり得るという、大きな可能性に気づいたのです。</p>
+            </div>
+            <div class="card-footer">
+                <span>目安時間: 約1分00秒</span>
+                <span>発表順: 8番目</span>
+            </div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="script-card" data-speaker="takubo">
+            <div class="card-meta">
+                <div class="slide-info">
+                    <span class="slide-badge">スライド 8</span>
+                    <span class="slide-title">解決した先の未来（理想の社会像）</span>
+                </div>
+                <span class="speaker-tag speaker-takubo">田窪 佑一朗</span>
+            </div>
+            <div class="text-body">
+                <p>では、この「日常のログから本質を評価する仕組み」が社会に浸透し、課題が解決された先には、どのような未来が待っているでしょうか。</p>
+                <p>まず学生や子どもたちにとっては、偏差値や就職活動のテンプレートに振り回されることがなくなります。「自分は何者か」を幼少期から日常を通じて自然に理解し、本当に自分に合った進路や仕事を選べるようになります。</p>
+                <p>社会人やシニア層にとっては、履歴書のスペックや年齢に関わらず、ありのままの強みに基づいて、新しい挑戦や幸福なマッチングができるようになります。</p>
+                <p>そして社会全体としては、テンプレート化された「建前」や「スペック」での足切りがなくなり、一人ひとりの多様な個性が強みとして社会に還元される、「真の適材適所」が実現した未来です。</p>
+            </div>
+            <div class="card-footer">
+                <span>目安時間: 約1分00秒</span>
+                <span>発表順: 9番目</span>
+            </div>
+        </div>
+
+        <!-- Slide 9 -->
+        <div class="script-card" data-speaker="takubo">
+            <div class="card-meta">
+                <div class="slide-info">
+                    <span class="slide-badge">スライド 10</span>
+                    <span class="slide-title">今後の展望：プラットフォームの可能性</span>
+                </div>
+                <span class="speaker-tag speaker-takubo">田窪 佑一朗</span>
+            </div>
+            <div class="text-body">
+                <p>したがって、私たちの研究の真のゴールは、単なる「就活アプリの開発」ではありません。</p>
+                <p>当初の「就活支援」という枠組みを超えて、このプラットフォームがもたらす「新しい価値提供の可能性」と、それによって「どのような社会課題を解決できるのか」をさらに深く探求・提言することです。</p>
+                <p>今後は、幼児教育や企業研修など、他分野での活用モデルを具体化し、7月15日の最終発表では、テンプレート就活の打破に留まらない、社会全体で人を本質評価する仕組みについての提言を行います。</p>
+            </div>
+            <div class="card-footer">
+                <span>目安時間: 約1分00秒</span>
+                <span>発表順: 10番目</span>
+            </div>
+        </div>
+
+        <!-- Slide 10 -->
+        <div class="script-card" data-speaker="takubo">
+            <div class="card-meta">
+                <div class="slide-info">
+                    <span class="slide-badge">スライド 11</span>
+                    <span class="slide-title">まとめ：固定概念を壊した先にある未来</span>
+                </div>
+                <span class="speaker-tag speaker-takubo">田窪 佑一朗</span>
+            </div>
+            <div class="text-body">
+                <p>私たちは、就活の固定概念を壊し、誰もが自分らしさを活かして本質で評価される社会を目指しています。</p>
+                <p>今回の実証実験は、その第一歩にすぎません。日常の可視化とAI評価を掛け合わせることで、子供からシニアまで、一人ひとりが自分らしく生きられる社会の実現に向けて、私たちはこれからも研究と提言を続けていきます。</p>
+                <p>ご清聴ありがとうございました。</p>
+            </div>
+            <div class="card-footer">
+                <span>目安時間: 約15秒</span>
+                <span>発表順: 11番目 (結び)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collapsible QA Section -->
+    <div class="qa-section-title">💡 質疑応答 想定Q&A</div>
+    <div class="qa-container">
+        <div class="qa-item">
+            <button class="qa-trigger" onclick="toggleQA(this)">Q1. なぜアンケート調査ではなくアプリなのか？</button>
+            <div class="qa-content">
+                意識調査（アンケート）は一時的な意識（建前）の把握には有効ですが、実際の就活プロセスを変える力はなく、回答にバイアスもかかります。スマホアプリというライフログツールを提供することで、学生が日常的に無意識の行動ログを蓄積し、それに基づいて企業がマッチングを行うという「実践的な社会実験」が可能になるからです。
+            </div>
+        </div>
+        <div class="qa-item">
+            <button class="qa-trigger" onclick="toggleQA(this)">Q2. アプリでどのようなデータが取れるのか？</button>
+            <div class="qa-content">
+                学生が日常の気づきや学びを記録したテキストデータです。ここから個人情報などを自動マスクしてバイアスを排した上で、「抽出されたスキル」と「客観的な能力データ」を生成し、社会学的に分析可能な行動ログデータとして蓄積します。
+            </div>
+        </div>
+        <div class="qa-item">
+            <button class="qa-trigger" onclick="toggleQA(this)">Q3. 「固定概念」とは具体的に何を指すのか？</button>
+            <div class="qa-content">
+                「ガクチカ」や「自己PR」といった画一的な選考フォーマット、大学の偏差値（スペック）だけで学生を足切りする採用慣行、スーツを着て同じような模範解答を繰り返す面接文化など、学生の本質的な個性や多様性を埋没させている既存の採用・就活システム全体を指します。
+            </div>
+        </div>
+        <div class="qa-item">
+            <button class="qa-trigger" onclick="toggleQA(this)">Q4. 既存の就活サービスや逆求人サイトとの違いは？</button>
+            <div class="qa-content">
+                既存の逆求人サイトもES（自己PRやガクチカ）を入力してスカウトを待つ仕組みであり、画一的な選考フォーマットの延長線上にあります。Essenceは、ESを一切書かずに「日常の生きた行動ログ」をAIが客観分析し、完全匿名（スペック非開示）のまま能力データだけでマッチングする点が本質的に異なります。
+            </div>
+        </div>
+        <div class="qa-item">
+            <button class="qa-trigger" onclick="toggleQA(this)">Q5. 幼児教育や企業研修などにどう応用するのか？</button>
+            <div class="qa-content">
+                基本的なアプローチである「日々の素朴なログ（観察記録や日報）からAIが本質的な強みや能力を可視化する」という仕組みを共通化します。幼児教育であれば『子どもたちの主体性の芽生え』をログから抽出し、企業研修であれば『日々の内省と成長プロセスの定量化』を行い、それぞれの場面に適した評価・自己探求メソッドとして展開します。
+            </div>
+        </div>
+    </div>
+    </div>
+
+</div>
+
+<!-- Sticky Back-to-Top Button -->
+<button class="btn-top" id="btn-to-top" onclick="scrollToTop()" title="ページ上部へ戻る">▲</button>
+
+<script>
+// Filter speaker cards
+function filterSpeaker(speaker) {
+    // Active button state
+    document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`.btn-filter[data-speaker="${speaker}"]`).classList.add('active');
+    
+    // Cards visibility
+    const cards = document.querySelectorAll('.script-card');
+    cards.forEach(card => {
+        if (speaker === 'all' || card.getAttribute('data-speaker') === speaker) {
+            card.classList.remove('hidden');
+        } else {
+            card.classList.add('hidden');
+        }
+    });
+}
+
+// Change Font size
+function changeFontSize(size) {
+    document.querySelectorAll('.btn-size').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(`size-${size}`).classList.add('active');
+    
+    document.body.className = `font-${size}`;
+}
+
+// Q&A accordion toggle
+function toggleQA(button) {
+    const item = button.parentElement;
+    const isOpen = item.classList.contains('open');
+    
+    document.querySelectorAll('.qa-item').forEach(i => {
+        i.classList.remove('open');
+        const content = i.querySelector('.qa-content');
+        if (content) content.style.maxHeight = null;
+    });
+    
+    if (!isOpen) {
+        item.classList.add('open');
+        const content = item.querySelector('.qa-content');
+        if (content) content.style.maxHeight = content.scrollHeight + "px";
+    }
+}
+
+// Scroll to top button visibility
+const toTopBtn = document.getElementById('btn-to-top');
+window.onscroll = function() {
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        toTopBtn.classList.add('show');
+    } else {
+        toTopBtn.classList.remove('show');
+    }
+};
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+</script>
+
+</body>
+</html>
